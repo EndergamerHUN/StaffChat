@@ -3,3 +3,19 @@ author: EndegamerHUN
 version: 0.0.1
 api-version: 1.14
 main: main.java.io.github.endergamerhun.staffchat.StaffChat
+commands:
+  staffchat:
+    description: Commands related to StaffChat plugin
+    permission: staffchat.command
+
+permissions:
+  staffchat.*:
+    description: Gives access to all StaffChat features
+    children:
+      staffchat.send: true
+      staffchat.read: true
+
+  staffchat.send:
+    description: Allows sending messages in StaffChat
+  staffchat.read:
+    description: Allows reading messages in StaffChat
