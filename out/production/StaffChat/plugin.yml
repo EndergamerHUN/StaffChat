@@ -1,0 +1,5 @@
+name: StaffChat
+author: EndegamerHUN
+version: 0.0.1
+api-version: 1.14
+main: main.java.io.github.endergamerhun.staffchat.StaffChat
