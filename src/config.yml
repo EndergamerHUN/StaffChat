@@ -1,0 +1,22 @@
+# The default format for messages sent in StaffChat.
+# Placeholders:
+# {displayname}: Displayname of the player
+# {name}: Username of the player
+# {message}: The message being sent to StaffChat
+# {priority}: Message priority. 0 if priority is disabled
+format: §7[§4!!§7]§8 {priority}§c {displayname}§8 > §f{message}
+
+# The prefix needed to speak in StaffChat.
+prefix: '!'
+
+# Enable the priority system to separate StaffChat based on permissions.
+priority: false
+# The highest priority possible.
+max-priority: 3
+# Uses the highest possible priority instead of the lowest if priority is not specified.
+use-highest-priority: false
+# The format to use for each priority. Uses the same placeholders as the default format.
+priority-format:
+#  '1': §7[§3StaffChat§7]§8 {priority}§e {displayname}§8 > §f{message}
+#  '2': §7[§4AdminChat§7]§8 {priority}§c {displayname}§8 > §e{message}
+#  '3': §7[§6OwnerChat§7]§8 {priority}§5 {displayname}§8 > §b{message}

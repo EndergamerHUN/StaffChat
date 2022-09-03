@@ -1,8 +1,9 @@
 package main.java.io.github.endergamerhun.staffchat;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,35 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
-
 public class StaffChat extends JavaPlugin implements Listener, CommandExecutor {
 
     @Override
     public void onEnable() {
-        FileConfiguration config = getConfig();
-        config.addDefault("format", "§7[§4!!§7]§c {displayname}§8 > §f{message}");
-        config.setComments("format", Arrays.asList(
-                "The default format for messages sent in StaffChat.",
-                "Placeholders:",
-                "{displayname}: Displayname of the player",
-                "{name}: Username of the player",
-                "{message}: The message being sent to StaffChat",
-                "{priority}: Message priority. 0 if priority is disabled"));
-        config.addDefault("prefix", "!");
-        config.setComments("prefix", Arrays.asList("The prefix needed to speak in StaffChat."));
-        config.addDefault("priority", false);
-        config.setComments("priority", Arrays.asList("Enable the priority system to separate StaffChat based on permissions."));
-        config.addDefault("max-priority", 2);
-        config.setComments("max-priority", Arrays.asList("The highest priority possible."));
-        config.addDefault("use-highest-priority", false);
-        config.setComments("use-highest-priority", Arrays.asList("Uses the highest possible priority instead of lowest if priority is not specified."));
-        config.addDefault("priority-format.1", "§7[§6StaffChat§7]§e {displayname}§8 > §f{message}");
-        config.addDefault("priority-format.2", "§7[§4AdminChat§7]§c {displayname}§8 > §e{message}");
-        config.setComments("priority-format", Arrays.asList("The format to use for each priority. Uses the same placeholders as the default format."));
-        config.options().copyDefaults(true);
-        saveConfig();
-
+        saveDefaultConfig();
         getServer().getPluginManager().registerEvents(this, this);
         getCommand("staffchat").setExecutor(this);
         log("Plugin loaded successfully!");
@@ -102,6 +79,13 @@ public class StaffChat extends JavaPlugin implements Listener, CommandExecutor {
 
         int finalPriority = priority;
         e.getRecipients().removeIf(p -> p != sender && !canUse(p, "read", finalPriority) );
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (args.length < 1) return true;
+        if (args[0].equalsIgnoreCase("reload")) reloadConfig();
+        return true;
     }
 
     private boolean canUse(Player p, String mode, int priority) {
