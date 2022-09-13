@@ -10,6 +10,9 @@ format: §7[§4!!§7]§8 {priority}§c {displayname}§8 > §f{message}
 prefix: '!'
 
 # Enable the priority system to separate StaffChat based on permissions.
+# The permission format is
+# - staffchat.write.<priority>
+# - staffchat.read.<priority>
 priority: false
 # The highest priority possible.
 max-priority: 3
